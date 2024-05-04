@@ -1,7 +1,7 @@
 // @ts-nocheck
 // <!--GAMFC-->version base on commit 43fad05dcdae3b723c53c226f8181fc5bd47223e, time is 2023-06-22 15:20:02 UTC<!--GAMFC-END-->.
 // @ts-ignore
-// https://github.com/bia-pain-bache/BPB-Worker-Panel
+// https://github.com/bia-pain-bache/BPB-Worker-colloq168
 
 import { connect } from 'cloudflare:sockets';
 
@@ -11,13 +11,13 @@ let userID = '89b3cbba-e6ac-485a-9481-976a0415eab9';
 
 // https://www.nslookup.io/domains/cdn.xn--b6gac.eu.org/dns-records/
 // https://www.nslookup.io/domains/cdn-all.xn--b6gac.eu.org/dns-records/
-const proxyIPs= ['cdn.xn--b6gac.eu.org', 'cdn-all.xn--b6gac.eu.org', 'edgetunnel.anycast.eu.org'];
+const proxyIPs= ['works.lianaishi.pub'];
 
 let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 
 let dohURL = 'https://cloudflare-dns.com/dns-query';
 
-let panelVersion = '2.3.4';
+let colloq168Version = '2.3.4';
 
 if (!isValidUUID(userID)) {
     throw new Error('uuid is not valid');
@@ -71,7 +71,7 @@ export default {
 
                         return new Response(`${JSON.stringify(fragConfigs, null, 4)}`, { status: 200 });
 
-                    case '/panel':
+                    case '/colloq168':
 
                         if (typeof env.bpb !== 'object') {
                             const errorPage = renderErrorPage('KV Dataset is not properly set!', null, true);
@@ -115,7 +115,7 @@ export default {
                         }
 
                         let loginAuth = await Authenticate(request, env);
-                        if (loginAuth) return Response.redirect(`${url.origin}/panel`, 302);
+                        if (loginAuth) return Response.redirect(`${url.origin}/colloq168`, 302);
 
                         let secretKey = await env.bpb.get('secretKey');
                         const pwd = await env.bpb.get('pwd');
@@ -171,7 +171,7 @@ export default {
                             }
                         });        
 
-                    case '/panel/password':
+                    case '/colloq168/password':
 
                         let passAuth = await Authenticate(request, env);
                         if (!passAuth) return new Response('Unauthorized!', { status: 401 });           
@@ -1343,7 +1343,7 @@ const renderHomePage = async (env, hostName, fragConfigs) => {
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>BPB Panel ${panelVersion}</title>
+        <title>BPB colloq168 ${colloq168Version}</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 		<style>
@@ -1542,7 +1542,7 @@ const renderHomePage = async (env, hostName, fragConfigs) => {
 	</head>
 	
 	<body>
-		<h1>BPB Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
+		<h1>BPB colloq168 <span style="font-size: smaller;">${colloq168Version}</span> 💦</h1>
 		<div class="form-container">
             <h2>FRAGMENT SETTINGS ⚙️</h2>
 			<form id="configForm">
@@ -1761,7 +1761,7 @@ const renderHomePage = async (env, hostName, fragConfigs) => {
             </div>
             <div class="footer">
                 <i class="fa fa-github" style="font-size:36px; margin-right: 10px;"></i>
-                <a class="link" href="https://github.com/bia-pain-bache/BPB-Worker-Panel" target="_blank">Github</a>
+                <a class="link" href="https://github.com/bia-pain-bache/BPB-Worker-colloq168" target="_blank">Github</a>
                 <button id="openModalBtn" class="button">Change Password</button>
                 <button type="button" id="logout" style="background: none; margin: 0; border: none; cursor: pointer;">
                     <i class="fa fa-power-off fa-2x" aria-hidden="true"></i>
@@ -1911,7 +1911,7 @@ const renderHomePage = async (env, hostName, fragConfigs) => {
                 const applyButtonVal = applyButton.value;
                 applyButton.value = '⌛ Loading...';
 
-                const response = await fetch('/panel', {
+                const response = await fetch('/colloq168', {
                     method: 'POST',
                     body: formData,
                     credentials: 'include'
@@ -1977,7 +1977,7 @@ const renderHomePage = async (env, hostName, fragConfigs) => {
             }
                     
             try {
-                const response = await fetch('/panel/password', {
+                const response = await fetch('/colloq168/password', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'text/plain'
@@ -2085,7 +2085,7 @@ const renderLoginPage = async () => {
     </head>
     <body>
         <div class="container">
-            <h1>BPB Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
+            <h1>BPB colloq168 <span style="font-size: smaller;">${colloq168Version}</span> 💦</h1>
             <div class="form-container">
                 <h2>User Login</h2>
                 <form id="loginForm">
@@ -2113,7 +2113,7 @@ const renderLoginPage = async () => {
                 });
             
                 if (response.ok) {
-                    window.location.href = '/panel';
+                    window.location.href = '/colloq168';
                 } else {
                     passwordError.textContent = '⚠️ Wrong Password!';
                     const errorMessage = await response.text();
@@ -2156,10 +2156,10 @@ const renderErrorPage = (message, error, refer) => {
 
     <body>
         <div id="error-container">
-            <h1>BPB Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
+            <h1>BPB colloq168 <span style="font-size: smaller;">${colloq168Version}</span> 💦</h1>
             <div id="error-message">
                 <h2>${message} ${refer 
-                    ? 'Please try again or refer to <a href="https://github.com/bia-pain-bache/BPB-Worker-Panel/blob/main/README.md">documents</a>' 
+                    ? 'Please try again or refer to <a href="https://github.com/bia-pain-bache/BPB-Worker-colloq168/blob/main/README.md">documents</a>' 
                     : ''}
                 </h2>
                 <p><b>${error ? `⚠️ ${error}` : ''}</b></p>
